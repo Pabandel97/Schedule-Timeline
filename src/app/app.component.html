@@ -1,0 +1,15 @@
+<div class="app-container">
+  <app-timeline
+    (createOrder)="onCreateOrder($event)"
+    (editOrder)="onEditOrder($event)"
+    (deleteOrder)="onDeleteOrder($event)">
+  </app-timeline>
+
+  <app-work-order-panel
+    [isOpen]="panelOpen"
+    [editOrder]="editOrder"
+    [createData]="createData"
+    (close)="onClosePanel()"
+    (saved)="onSaved()">
+  </app-work-order-panel>
+</div>

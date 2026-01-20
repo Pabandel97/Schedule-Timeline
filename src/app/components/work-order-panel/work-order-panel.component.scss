@@ -1,0 +1,198 @@
+.panel-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panel-container {
+  width: var(--panel-width);
+  background: var(--color-background);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.panel-header {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-background-hover);
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.panel-form {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.form-control {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "Circular-Std", sans-serif;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--status-open);
+  }
+
+  &.is-invalid {
+    border-color: #dc3545;
+  }
+}
+
+.input-group {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.input-group .form-control {
+  flex: 1;
+}
+
+.btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "Circular-Std", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &.btn-primary {
+    background: var(--status-open);
+    color: white;
+    border-color: var(--status-open);
+
+    &:hover {
+      background: #0056b3;
+      border-color: #0056b3;
+    }
+  }
+
+  &.btn-secondary {
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+
+    &:hover {
+      background: var(--color-background-hover);
+    }
+  }
+
+  &.btn-outline-secondary {
+    background: var(--color-background);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border);
+
+    &:hover {
+      background: var(--color-background-hover);
+    }
+  }
+}
+
+.invalid-feedback {
+  font-size: 12px;
+  color: #dc3545;
+  margin-top: 2px;
+}
+
+.alert {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 4px;
+  font-size: 14px;
+
+  &.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+::ng-deep {
+  .ng-select {
+    .ng-select-container {
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      min-height: 38px;
+
+      &:hover {
+        border-color: var(--status-open);
+      }
+    }
+
+    &.ng-select-focused .ng-select-container {
+      border-color: var(--status-open);
+    }
+
+    &.is-invalid .ng-select-container {
+      border-color: #dc3545;
+    }
+  }
+
+  .ng-dropdown-panel {
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}

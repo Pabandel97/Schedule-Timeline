@@ -1,0 +1,61 @@
+<div class="timeline-container">
+  <div class="timeline-header">
+    <h2 class="timeline-title">Work Orders</h2>
+    <div class="zoom-controls">
+      <label for="zoom-select">Timescale:</label>
+      <select id="zoom-select" class="zoom-select" [value]="zoomLevel" (change)="onZoomChange($any($event.target).value)">
+        <option value="day">Day</option>
+        <option value="week">Week</option>
+        <option value="month">Month</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="timeline-grid">
+    <!-- Fixed Left Panel - Work Center Names -->
+    <div class="timeline-left-panel">
+      <div class="timeline-header-row">
+        <div class="work-center-header">Work Center</div>
+      </div>
+      <div class="timeline-rows">
+        <div class="timeline-row" *ngFor="let center of workCenters">
+          <div class="work-center-name">{{ center.data.name }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable Right Panel - Timeline Grid -->
+    <div class="timeline-right-panel" #timelineScroll>
+      <!-- Timeline Header with Date Columns -->
+      <div class="timeline-header-row">
+        <div class="timeline-header-content" [style.width.px]="getTimelineWidth()">
+          <div class="timeline-column" *ngFor="let column of timelineColumns" [style.width.px]="column.width">
+            <div class="column-label">{{ column.label }}</div>
+          </div>
+          <!-- Current Day Indicator -->
+          <div class="today-indicator" [style.left.px]="todayPosition"></div>
+        </div>
+      </div>
+
+      <!-- Timeline Rows with Work Orders -->
+      <div class="timeline-rows">
+        <div class="timeline-row" *ngFor="let center of workCenters">
+          <div class="timeline-row-content" 
+               [style.width.px]="getTimelineWidth()"
+               (click)="onTimelineClick($event, center.docId)">
+            <!-- Work Order Bars -->
+            <app-work-order-bar
+              *ngFor="let order of getWorkOrdersForCenter(center.docId)"
+              [workOrder]="order"
+              [timelineStart]="timelineStartDate"
+              [timelineEnd]="timelineEndDate"
+              [timelineWidth]="getTimelineWidth()"
+              (edit)="onEditOrder($event)"
+              (delete)="onDeleteOrder($event)">
+            </app-work-order-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

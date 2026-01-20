@@ -1,0 +1,17 @@
+<div class="work-order-bar" 
+     [class]="statusClass"
+     [style.left.px]="barLeft"
+     [style.width.px]="barWidth"
+     (click)="onClick($event)">
+  <div class="bar-content">
+    <span class="order-name">{{ workOrder.data.name }}</span>
+    <span class="status-badge" [class]="statusClass">{{ statusLabel }}</span>
+  </div>
+  <button class="menu-button" (click)="toggleMenu($event)" type="button">
+    <span class="menu-dots">⋯</span>
+  </button>
+  <div class="menu-dropdown" *ngIf="showMenu">
+    <button class="menu-item" (click)="onEdit($event)">Edit</button>
+    <button class="menu-item" (click)="onDelete($event)">Delete</button>
+  </div>
+</div>

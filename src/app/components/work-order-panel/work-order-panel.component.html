@@ -1,0 +1,114 @@
+<div class="panel-backdrop" *ngIf="isOpen" (click)="onBackdropClick()">
+  <div class="panel-container" (click)="onPanelClick($event)">
+    <div class="panel-header">
+      <h3>Work Order Details</h3>
+    </div>
+
+    <form [formGroup]="workOrderForm" (ngSubmit)="onSubmit()" class="panel-form">
+      <!-- Work Center -->
+      <div class="form-group">
+        <label for="workCenterId">Work Center</label>
+        <ng-select
+          id="workCenterId"
+          formControlName="workCenterId"
+          [items]="workCenterOptions"
+          bindValue="value"
+          bindLabel="label"
+          placeholder="Select work center"
+          [class.is-invalid]="workOrderForm.get('workCenterId')?.invalid && workOrderForm.get('workCenterId')?.touched">
+        </ng-select>
+        <div class="invalid-feedback" *ngIf="workOrderForm.get('workCenterId')?.invalid && workOrderForm.get('workCenterId')?.touched">
+          Work center is required
+        </div>
+      </div>
+
+      <!-- Work Order Name -->
+      <div class="form-group">
+        <label for="name">Work Order Name</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+          [class.is-invalid]="workOrderForm.get('name')?.invalid && workOrderForm.get('name')?.touched"
+          placeholder="Enter work order name">
+        <div class="invalid-feedback" *ngIf="workOrderForm.get('name')?.invalid && workOrderForm.get('name')?.touched">
+          Work order name is required
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label for="status">Status</label>
+        <ng-select
+          id="status"
+          formControlName="status"
+          [items]="statusOptions"
+          bindValue="value"
+          bindLabel="label"
+          placeholder="Select status"
+          [class.is-invalid]="workOrderForm.get('status')?.invalid && workOrderForm.get('status')?.touched">
+        </ng-select>
+        <div class="invalid-feedback" *ngIf="workOrderForm.get('status')?.invalid && workOrderForm.get('status')?.touched">
+          Status is required
+        </div>
+      </div>
+
+      <!-- Start Date -->
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            formControlName="startDate"
+            ngbDatepicker
+            #startDatePicker="ngbDatepicker"
+            [class.is-invalid]="workOrderForm.get('startDate')?.invalid && workOrderForm.get('startDate')?.touched">
+          <button class="btn btn-outline-secondary" (click)="startDatePicker.toggle()" type="button">
+            📅
+          </button>
+        </div>
+        <div class="invalid-feedback" *ngIf="workOrderForm.get('startDate')?.invalid && workOrderForm.get('startDate')?.touched">
+          Start date is required
+        </div>
+      </div>
+
+      <!-- End Date -->
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            formControlName="endDate"
+            ngbDatepicker
+            #endDatePicker="ngbDatepicker"
+            [class.is-invalid]="workOrderForm.get('endDate')?.invalid && workOrderForm.get('endDate')?.touched">
+          <button class="btn btn-outline-secondary" (click)="endDatePicker.toggle()" type="button">
+            📅
+          </button>
+        </div>
+        <div class="invalid-feedback" *ngIf="workOrderForm.get('endDate')?.invalid && workOrderForm.get('endDate')?.touched">
+          End date is required
+        </div>
+        <div class="invalid-feedback" *ngIf="workOrderForm.hasError('dateRange') && workOrderForm.get('endDate')?.touched">
+          End date must be after start date
+        </div>
+      </div>
+
+      <!-- Overlap Error -->
+      <div class="alert alert-danger" *ngIf="overlapError">
+        {{ overlapError }}
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary">
+          {{ isEditMode ? 'Save' : 'Create' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
